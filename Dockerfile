@@ -45,6 +45,6 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
 
 RUN npm install
 
-RUN ionic cordova add browser
+RUN ionic cordova platfrom add browser
 
 CMD ["ionic", "cordova", "run", "browser"]
