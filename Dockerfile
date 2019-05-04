@@ -43,9 +43,9 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              cordova-plugin-network-information \
                              cordova-plugin-screen-orientation
 
-RUN npm install & \
-    npm clean & \
-    npm build
+RUN npm install
+RUN npm clean
+RUN npm build
 
 RUN ionic cordova add browser
 
