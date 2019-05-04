@@ -1,8 +1,15 @@
 FROM node:8-alpine
 MAINTAINER leon_xi@163.com
 
-RUN apk update & \
-    apk add git
+RUN apk update && \
+    apk add git && \
+    apk add --no-cache openssh-server tzdata && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+    ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
+    echo "root:1234" | chpasswd
 
 RUN npm install -g ionic@4.1.2 \
                    phonegap \
@@ -47,4 +54,4 @@ RUN npm install
 
 RUN ionic cordova platfrom add browser
 
-CMD ["ionic", "cordova", "run", "browser"]
+CMD ["/usr/sbin/sshd", "-D"]
