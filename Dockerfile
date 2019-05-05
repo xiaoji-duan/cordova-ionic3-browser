@@ -1,8 +1,15 @@
 FROM node:8-alpine
 MAINTAINER leon_xi@163.com
 
-RUN apk update & \
-    apk add git
+RUN apk update && \
+    apk add git && \
+    apk add --no-cache openssh-server tzdata && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+    ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
+    echo "root:1234" | chpasswd
 
 RUN npm install -g ionic@4.1.2 \
                    phonegap \
@@ -13,6 +20,9 @@ RUN mkdir -p /opt/gtd2
 WORKDIR /opt/gtd2
 
 RUN git clone -b develop https://github.com/XJ-GTD/GTD2.git .
+
+WORKDIR /opt/gtd2/TimeApp
+
 RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              ../xjalarmclock \
                              cordova-sqlite-storage \
@@ -40,10 +50,8 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              cordova-plugin-network-information \
                              cordova-plugin-screen-orientation
 
-RUN npm install & \
-    npm clean & \
-    npm build
+RUN npm install
 
-RUN ionic cordova add browser
+RUN ionic cordova add platfrom browser
 
-CMD ["ionic", "cordova", "run", "browser"]
+CMD ["/usr/sbin/sshd", "-D"]
