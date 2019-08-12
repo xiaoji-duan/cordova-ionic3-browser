@@ -54,4 +54,6 @@ RUN npm install
 
 RUN ionic cordova add platfrom browser
 
+RUN apk add --no-cache chromium
+
 CMD ["/usr/sbin/sshd", "-D"]
