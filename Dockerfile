@@ -23,6 +23,9 @@ RUN git clone -b develop https://github.com/XJ-GTD/GTD2.git .
 
 WORKDIR /opt/gtd2/TimeApp
 
+RUN git pull
+RUN git reset --hard origin/cassiscornuta
+
 RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              ../xjalarmclock \
                              cordova-sqlite-storage \
