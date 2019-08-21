@@ -54,6 +54,7 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              cordova-plugin-screen-orientation
 
 RUN npm install
+RUN npm install -g karma-cli
 
 RUN ionic cordova add platfrom browser
 
