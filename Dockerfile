@@ -3,7 +3,7 @@ MAINTAINER leon_xi@163.com
 
 RUN apk update && \
     apk add git && \
-    apk add --no-cache openssh-server tzdata && \
+    apk add --no-cache openssh tzdata && \
     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
@@ -51,6 +51,7 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              cordova-plugin-screen-orientation
 
 RUN npm install
+
 RUN npm install -g karma-cli
 
 RUN ionic cordova add platfrom browser
