@@ -19,7 +19,7 @@ RUN npm install -g ionic@4.1.2 \
 RUN mkdir -p /opt/gtd2
 WORKDIR /opt/gtd2
 
-RUN git clone -b develop https://github.com/XJ-GTD/GTD2.git .
+RUN git clone -b cassiscornuta https://github.com/XJ-GTD/GTD2.git .
 
 WORKDIR /opt/gtd2/TimeApp
 
@@ -52,6 +52,10 @@ RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
 
 RUN npm install
 
+RUN npm install -g karma-cli
+
 RUN ionic cordova add platfrom browser
+
+RUN apk add --no-cache chromium
 
 CMD ["/usr/sbin/sshd", "-D"]
