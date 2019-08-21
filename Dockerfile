@@ -19,12 +19,9 @@ RUN npm install -g ionic@4.1.2 \
 RUN mkdir -p /opt/gtd2
 WORKDIR /opt/gtd2
 
-RUN git clone -b develop https://github.com/XJ-GTD/GTD2.git .
+RUN git clone -b cassiscornuta https://github.com/XJ-GTD/GTD2.git .
 
 WORKDIR /opt/gtd2/TimeApp
-
-RUN git pull
-RUN git reset --hard origin/cassiscornuta
 
 RUN ionic cordova plugin add ../BaiduSpeechAndTTS \
                              ../xjalarmclock \
